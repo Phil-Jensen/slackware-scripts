@@ -1,4 +1,0 @@
-Typically do the following in order to update a system:
-1. update-noprompts.sh
-2. mkinitrd_post_upgrade-all.sh
-3. check-reboot-state.sh*

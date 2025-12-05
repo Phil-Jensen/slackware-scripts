@@ -18,11 +18,16 @@
 #
 # mkinitrd_command_generator.sh revision 1.45
 #
-# This script will now make a recommendation about the command to use
-# in case you require an initrd image to boot a kernel that does not
-# have support for your storage or root filesystem built in
-# (such as the Slackware 'generic' kernels').
-# A suitable 'mkinitrd' command will be:
+if [ ! -f .mkinitrd_command_generator.sh ]; then
+        echo "Need to run /usr/share/mkinitrd/mkinitrd_command_generator.sh"
+        echo "and add the output to the `mkinitrd` command in this script."
+        echo
+        echo "When this has been done, do the following:"
+        echo "touch .mkinitrd_command_generator.sh"
+        echo
+        echo "Exiting!"
+        exit 1
+fi
 
 RUNNING_KERNEL=$(uname -r)
 NEW_KERNEL=$(ls /lib/modules/ | tr -d '/')
@@ -39,6 +44,8 @@ generate_initrd() {
                 -K LABEL=KEYDISK:/beeslack.key
         # $(ls /lib/modules/ | tr -d '/')
         #5.15.187
+        echo "If using elilo then make sure the initrd.gz file is in the correct path."
+        echo "For example, /boot/efi/EFI/Slackware/initrd.gz"
 }
 
 if [ "${RUNNING_KERNEL}" != "${NEW_KERNEL}" ]; then
